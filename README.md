@@ -1,3 +1,6 @@
+Currently in development.
+This was created during my time as a student at Code Chrysalis.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
