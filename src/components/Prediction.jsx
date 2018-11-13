@@ -2,11 +2,13 @@ import React, { Component } from "react";
 
 class Prediction extends Component {
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.props.loadModel();
+    }
     render() {
         return (
             <div className="prediction">
-            This should be the prediction.
+                {this.props.answer ? this.props.answer : "Draw something"}
             </div >
         )
     }

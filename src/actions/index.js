@@ -1,3 +1,4 @@
+import * as tf from '@tensorflow/tfjs';
 
 export function createDrawPad(ref) {
     return function (dispatch, getState) {
@@ -6,9 +7,7 @@ export function createDrawPad(ref) {
             const context = canvas.getContext("2d");
             canvas.width = 250;
             canvas.height = 250;
-            context.rect(0, 0, canvas.width, canvas.height);
-            context.fillStyle = "white";
-            context.fill();
+            context.strokeStyle = "grey";
 
             var mouse = { x: 0, y: 0 };
 
@@ -28,9 +27,11 @@ export function createDrawPad(ref) {
 
             canvas.addEventListener('mouseup', function () {
                 canvas.removeEventListener('mousemove', onPaint, false);
-                dispatch(setCurrentDraw(getState().canvas.toDataURL()))
-                //CONSOLE LOG RIGHT HERE
-                console.log(getState().currentDraw);
+                const imageData = getState().context.getImageData(0, 0, 28, 28);
+                dispatch(setCurrentDraw(imageData))
+                dispatch(predict(imageData));
+                console.log(getState().answer);
+                console.log(getState().predictions);
             }, false);
 
             var onPaint = function () {
@@ -62,17 +63,55 @@ export function clearDrawPad() {
             const canvas = getState().canvas;
             const context = canvas.getContext('2d');;
             context.clearRect(0, 0, canvas.width, canvas.height);
-            fillWhite();
-            fillWhite();
-            fillWhite();
-            fillWhite();
-            function fillWhite() {
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fillStyle = "white";
-                context.fill();
-            }
-
             dispatch(setDrawPad(canvas, context));
+            dispatch(setPredictions(null, null));
         })();
+    };
+}
+
+export function loadModel() {
+    return function (dispatch) {
+        return (async () => {
+            const model = await tf.loadModel('./assets/model.json');
+            dispatch(setModel(model));
+            console.log(model);
+        })();
+    }
+}
+
+function setModel(model) {
+    return {
+        type: "SET_MODEL",
+        model,
+    };
+}
+
+function predict(imageData) {
+    return function (dispatch, getState) {
+        return (async () => {
+            let maxProb = 0;
+            let result;
+            let img = tf.fromPixels(imageData, 1).reshape([1, 28, 28, 1]);
+            img = tf.cast(img, 'float32');
+
+            const output = await getState().model.predict(img);
+            const predictions = Array.from(output.dataSync());
+
+            predictions.forEach((prob, num) => {
+                if (prob > maxProb) {
+                    maxProb = prob;
+                    result = num;
+                }
+                output.print();
+            });
+            dispatch(setPredictions(result, predictions));
+        })();
+    }
+}
+
+function setPredictions(answer, predictions) {
+    return {
+        type: "SET_PREDICTIONS",
+        answer, predictions
     };
 }

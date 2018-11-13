@@ -1,4 +1,4 @@
-import MnistData from "./data";
+import MnistData from "../data";
 const data = new MnistData();
 
 async function train(model, onIteration) {

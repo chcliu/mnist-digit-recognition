@@ -1,14 +1,20 @@
 import { connect } from "react-redux";
 import Prediction from "../components/Prediction";
-import { } from "../actions/index";
+import { loadModel } from "../actions/index";
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        loadModel: () => {
+            const res = loadModel();
+            dispatch(res);
+        },
+    };
 };
 
 const mapStateToProps = (state) => {
     return {
         currentDraw: state.currentDraw,
+        answer: state.answer
     };
 };
 
