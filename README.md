@@ -10,6 +10,12 @@ This app uses React-Redux, TensorFlowJS, and MaterialUI.
 
 For a demo, please check out https://tsflowjs-mnist.herokuapp.com/.
 
+### Future Plans:
+- [ ] Expand the drawpad size by adding a bounding box and cropping the image.
+- [ ] Create self-trained TensorFlow model.
+- [ ] Add capabilities to train model as you use it more.
+- [ ] And more...
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
