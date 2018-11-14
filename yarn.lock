@@ -5697,6 +5697,11 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
+keras@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/keras/-/keras-1.0.1.tgz#51cbf15de2a24105a0fa1cb2d16b94ea8b13e1c6"
+  integrity sha1-UcvxXeKiQQWg+hyy0WuU6osT4cY=
+
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -6500,6 +6505,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
+
+numpy@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/numpy/-/numpy-0.0.1.tgz#c6bbd4c49b45bd537f768a09c9220a290de41598"
+  integrity sha1-xrvUxJtFvVN/dooJySIKKQ3kFZg=
 
 nwsapi@^2.0.7, nwsapi@^2.0.9:
   version "2.0.9"

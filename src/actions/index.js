@@ -5,36 +5,56 @@ export function createDrawPad(ref) {
         return (async () => {
             const canvas = ref;
             const context = canvas.getContext("2d");
-            canvas.width = 250;
-            canvas.height = 250;
+            canvas.width = 28;
+            canvas.height = 28;
             context.strokeStyle = "grey";
-
             var mouse = { x: 0, y: 0 };
 
             canvas.addEventListener('mousemove', function (e) {
                 mouse.x = e.pageX - this.offsetLeft;
                 mouse.y = e.pageY - this.offsetTop;
-            }, false);
 
+            }, false);
 
             canvas.addEventListener('mousedown', function (e) {
                 context.beginPath();
-                context.lineWidth = 10;
+                console.log("MOUSE DOWN", mouse.x, mouse.y)
                 context.moveTo(mouse.x, mouse.y);
-
                 canvas.addEventListener('mousemove', onPaint, false);
             }, false);
 
             canvas.addEventListener('mouseup', function () {
                 canvas.removeEventListener('mousemove', onPaint, false);
-                const imageData = getState().context.getImageData(0, 0, 28, 28);
-                dispatch(setCurrentDraw(imageData))
+                // console.log(bounds);
+                // dispatch(setCoordinates([...getState().arrayX, mouse.x], [...getState().arrayY, mouse.y]));
+                console.log("MOUSE UP", mouse.x, mouse.y);
+                // const left = Math.min(...getState().arrayX);
+                // const top = Math.min(...getState().arrayY);
+                // const right = Math.max(...getState().arrayX);
+                // const bottom = Math.max(...getState().arrayY);
+                // dispatch(setBoundBox(left, top, right, bottom))
+                // const mostRight = arrayY.sort((a, b) => a < b)[0];
+                // console.log("BOUND BOX", left, top, right, bottom);
+                const width = getState().right - getState().left;
+                const height = getState().bottom - getState().top;
+                // console.log(width, height);
+                context.rect(getState().left, getState().right, width, height);
+                context.stroke();
+                let imageData = getState().context.getImageData(0, 0, 28, 28);
+                console.log(imageData);
+                // for (let y = canvas.height; y > 0; y--) {
+                //     for (let x = canvas.width; x > 0; x--) {
+                //         if 
+                //     }
+                // }
+                // dispatch(setCurrentDraw(imageData))
                 dispatch(predict(imageData));
-                console.log(getState().answer);
-                console.log(getState().predictions);
+                // console.log(getState().answer);
+                // console.log(getState().predictions);
             }, false);
 
             var onPaint = function () {
+                // dispatch(setCoordinates([...getState().arrayX, mouse.x], [...getState().arrayY, mouse.y]));
                 context.lineTo(mouse.x, mouse.y);
                 context.stroke();
             };
@@ -72,9 +92,10 @@ export function clearDrawPad() {
 export function loadModel() {
     return function (dispatch) {
         return (async () => {
-            const model = await tf.loadModel('./assets/model.json');
-            dispatch(setModel(model));
+            // const model = await tf.loadModel("https://raw.githubusercontent.com/ixartz/handwritten-digit-recognition-tensorflowjs/master/public/classifiers/model.json");
+            const model = await tf.loadModel("https://raw.githubusercontent.com/aralroca/MNIST_React_TensorFlowJS/master/public/assets/model.json");
             console.log(model);
+            dispatch(setModel(model));
         })();
     }
 }
@@ -91,10 +112,11 @@ function predict(imageData) {
         return (async () => {
             let maxProb = 0;
             let result;
-            let img = tf.fromPixels(imageData, 1).reshape([1, 28, 28, 1]);
-            img = tf.cast(img, 'float32');
+            let tensor = tf.fromPixels(imageData, 1).toFloat().reshape([1, 28, 28, 1])
 
-            const output = await getState().model.predict(img);
+            // tensor = tf.cast(tensor, 'float32');
+
+            const output = await getState().model.predict(tensor);
             const predictions = Array.from(output.dataSync());
 
             predictions.forEach((prob, num) => {
@@ -102,8 +124,8 @@ function predict(imageData) {
                     maxProb = prob;
                     result = num;
                 }
-                output.print();
             });
+            output.print();
             dispatch(setPredictions(result, predictions));
         })();
     }
@@ -113,5 +135,19 @@ function setPredictions(answer, predictions) {
     return {
         type: "SET_PREDICTIONS",
         answer, predictions
+    };
+}
+
+function setCoordinates(arrayX, arrayY) {
+    return {
+        type: "SET_COORDINATES",
+        arrayX, arrayY,
+    };
+}
+
+function setBoundBox(left, top, right, bottom) {
+    return {
+        type: "SET_BOUND_BOX",
+        left, right, top, bottom,
     };
 }
