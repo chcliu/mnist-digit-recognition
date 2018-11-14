@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import DrawingPad from "../components/DrawingPad";
 import { createDrawPad, clearDrawPad } from "../actions/index";
 
+
 const mapDispatchToProps = (dispatch) => {
     return {
         createDrawPad: (ref) => {

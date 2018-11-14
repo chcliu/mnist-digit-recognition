@@ -7,9 +7,9 @@ class Prediction extends Component {
     }
     render() {
         return (
-            <div className="prediction">
+            <h3 className="prediction">
                 {this.props.answer !== null ? this.props.answer : "Draw something"}
-            </div >
+            </h3>
         )
     }
 }

@@ -17,4 +17,7 @@ code {
   border: 10px, solid, black;
 }
 
-.clear-btn {}
+#root {
+  display: flex;
+
+}
