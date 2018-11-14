@@ -1,7 +1,7 @@
 Currently still in development.
 This was created during my time as a student at Code Chrysalis.
 
-#Pre-trained Digit Recognition App using TensorFlow.JS
+# Pre-trained Digit Recognition App using TensorFlow.JS
 This app allows a user-drawn input of a single digit number (0-9) and uses a pre-trained TensorFlow model to predict what the digit is.
 
 Source of the model: https://github.com/aralroca/MNIST_React_TensorFlowJS
