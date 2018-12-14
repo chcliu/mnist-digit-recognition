@@ -11,7 +11,7 @@ class DrawingPad extends Component {
         return (
             <div>
                 <div className="drawingPad">
-                    <canvas ref="canvas" width="250" height="250" style={{ border: "2px solid black" }}></canvas>
+                    <canvas ref="canvas" width="250" height="250" style={{ border: "3px inset gray" }}></canvas>
                 </div>
                 <Button className="clear-btn" size="small" variant="contained" color="primary" onClick={this.props.clearDrawPad}>Clear</Button>
             </div >

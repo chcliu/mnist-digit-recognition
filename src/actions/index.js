@@ -114,8 +114,6 @@ function predict(imageData) {
             let result;
             let tensor = tf.fromPixels(imageData, 1).toFloat().reshape([1, 28, 28, 1])
 
-            // tensor = tf.cast(tensor, 'float32');
-
             const output = await getState().model.predict(tensor);
             const predictions = Array.from(output.dataSync());
 

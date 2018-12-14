@@ -6,18 +6,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: ghostwhite;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.app {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .drawingPad {
-  border: 10px, solid, black;
-}
-
-#root {
-  display: flex;
-
+  margin-left: 15px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  border: 10px, inset, black;
 }

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import 'typeface-roboto';
+import { Typography } from '@material-ui/core';
 
 class Prediction extends Component {
 
@@ -7,9 +9,9 @@ class Prediction extends Component {
     }
     render() {
         return (
-            <h3 className="prediction">
-                {this.props.answer !== null ? this.props.answer : "Draw something"}
-            </h3>
+            <Typography className="prediction" style={{color: 'gray'}}>
+                {this.props.answer !== null ? "Prediction: " + this.props.answer : "Enter a digit from 0 to 9."}
+            </Typography>
         )
     }
 }

@@ -5,9 +5,9 @@ import { PredictionContainer } from "./containers/Prediction";
 class App extends Component {
     render() {
         return (
-            <div>
-                <DrawingPadContainer />
+            <div class="app">
                 <PredictionContainer />
+                <DrawingPadContainer />
             </div>
 
         )
