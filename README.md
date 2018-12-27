@@ -3,7 +3,7 @@ This was created during my time as a student at Code Chrysalis.
 # MNIST Digit Recognition App using TensorFlow.JS
 
 <p align="center">
-  <img height="100" width="50" src="https://raw.githubusercontent.com/chcliu/mnist-digit-recognition/master/public/assets/mnist-readme.PNG">
+  <img height="1000" width="500" src="https://raw.githubusercontent.com/chcliu/mnist-digit-recognition/master/public/assets/mnist-readme.PNG">
 <p>
 
 This app allows a user-drawn input of a single digit number (0-9) and uses a pre-trained TensorFlow model to predict what the digit is.
