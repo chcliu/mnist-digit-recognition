@@ -1,13 +1,30 @@
-Currently in development.
+Currently still in development.
 This was created during my time as a student at Code Chrysalis.
+
+# Pre-trained Digit Recognition App using TensorFlow.JS
+This app allows a user-drawn input of a single digit number (0-9) and uses a pre-trained TensorFlow model to predict what the digit is.
+
+Source of the model: https://github.com/aralroca/MNIST_React_TensorFlowJS
+
+This app uses React-Redux, TensorFlowJS, and MaterialUI.
+
+For a demo, please check out https://tsflowjs-mnist.herokuapp.com/.
+
+### Future Plans:
+- [ ] Expand the drawpad size by adding a bounding box and cropping the image.
+- [ ] Create self-trained TensorFlow model.
+- [ ] Add capabilities to train model as you use it more.
+- [ ] And more...
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
+### Install with "yarn"
+
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -15,12 +32,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -30,7 +47,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
