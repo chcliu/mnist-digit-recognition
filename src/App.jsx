@@ -7,7 +7,7 @@ import { Typography } from '@material-ui/core';
 class App extends Component {
     render() {
         return (
-            <div class="app">
+            <div className="app">
                 <Typography className="text" style={{ color: 'gray', fontSize: 25 }}>
                     Enter a digit from 0 to 9.
                 </Typography>
