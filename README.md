@@ -1,64 +1,25 @@
-Currently still in development.
 This was created during my time as a student at Code Chrysalis.
 
-# Pre-trained Digit Recognition App using TensorFlow.JS
+# MNIST Digit Recognition App using TensorFlow.JS
 This app allows a user-drawn input of a single digit number (0-9) and uses a pre-trained TensorFlow model to predict what the digit is.
 
-Source of the model: https://github.com/aralroca/MNIST_React_TensorFlowJS
+This was my introduction to machine learning and is the basis behind my 45 minute tech talk. You can view the tech talk at https://www.youtube.com/watch?v=6gjEkcwjJUQ&t=6270s.
+I start at 00:51:15. In the tech talk, I go over Convolutional Neural Networks and how to use the MNIST dataset to a fully trained version of this app.
 
-This app uses React-Redux, TensorFlowJS, and MaterialUI.
+Source of the model: https://github.com/aralroca/MNIST_React_TensorFlowJS. This model has very high accuracy which is why I am using it.
+
+This app uses React-Redux, TensorFlowJS, GraphQL, and MaterialUI.
 
 For a demo, please check out https://tsflowjs-mnist.herokuapp.com/.
 
-### Future Plans:
-- [ ] Expand the drawpad size by adding a bounding box and cropping the image.
-- [ ] Create self-trained TensorFlow model.
-- [ ] Add capabilities to train model as you use it more.
-- [ ] And more...
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## To start app:
 
 ### Install with "yarn"
-
-In the project directory, you can run:
 
 ### `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
