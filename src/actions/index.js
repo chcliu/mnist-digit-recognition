@@ -1,12 +1,140 @@
 import * as tf from '@tensorflow/tfjs';
+import Chart from 'chart.js';
+import { update } from '@tensorflow/tfjs-layers/dist/variables';
+import ReactDOM from "react-dom";
+import { chartData } from "./chartData";
+
+let called = false;
+let chartContext;
+
+const defData = {
+    type: 'doughnut',
+    data: {
+        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",],
+        datasets: [
+            {
+                label: 'Data',
+                data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+                backgroundColor: [
+                    // colorArray[9],
+                    "black",
+                    "yellow",
+                    "red",
+                    "green",
+                    "blue",
+                    "orange",
+                    "purple",
+                    "pink",
+                    "brown",
+                    "lavender"
+                ],
+                borderColor: [
+                    'white',
+                ],
+                borderWidth: 2
+            },
+        ]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        rotation: 1 * Math.PI,
+        circumference: 1 * Math.PI
+
+    }
+};
+
+
+
+export function updateChart(ctx) {
+    return function (dispatch, getState) {
+        return (async () => {
+            if (getState().answer && !called) {
+                chartContext = ctx;
+                let chart = getState().chart;
+                console.log("before", chart);
+                chart.destroy();
+                // let index = getState().predictions.indexOf(getState().answer);
+                console.log("TESTTSTSTSTS", getState().predictions, getState().answer)
+                console.log(chartData);
+                console.log("TESTTTT", chartData[getState().answer]);
+                // chart.data.datasets.data = getState().predictions;
+                called = true;
+                chart = new Chart(ctx, chartData[getState().answer])
+                // chart.data.datasets.data = getState().predictions;
+                // chart.update();
+                console.log("updated chart", chart);
+                dispatch(setChart(chart));
+                // console.log("chart from state", getState().chart)
+                // getState().chart.update();
+            }
+        })();
+    };
+}
+
+export function createChart(ref) {
+    return function (dispatch, getState) {
+        return (async () => {
+            let data = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+            let ctx = ref;
+            let myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",],
+                    datasets: [
+                        {
+                            label: 'Data',
+                            data: data,
+                            backgroundColor: [
+                                // colorArray[9],
+                                "black",
+                                "yellow",
+                                "red",
+                                "green",
+                                "blue",
+                                "orange",
+                                "purple",
+                                "pink",
+                                "brown",
+                                "lavender"
+                            ],
+                            borderColor: [
+                                'white',
+                            ],
+                            borderWidth: 2
+                        },
+                    ]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    rotation: 1 * Math.PI,
+                    circumference: 1 * Math.PI
+
+                }
+            });
+            dispatch(setChart(myChart))
+        })();
+    };
+}
+
+function setChart(chart) {
+    return {
+        type: "SET_CHART",
+        chart
+    };
+}
 
 export function createDrawPad(ref) {
     return function (dispatch, getState) {
         return (async () => {
             const canvas = ref;
             const context = canvas.getContext("2d");
-            canvas.width = 28;
-            canvas.height = 28;
+            canvas.width = 200;
+            canvas.height = 200;
+            context.lineWidth = 10;
             context.strokeStyle = "grey";
             var mouse = { x: 0, y: 0 };
 
@@ -25,28 +153,19 @@ export function createDrawPad(ref) {
 
             canvas.addEventListener('mouseup', function () {
                 canvas.removeEventListener('mousemove', onPaint, false);
-                // console.log(bounds);
-                // dispatch(setCoordinates([...getState().arrayX, mouse.x], [...getState().arrayY, mouse.y]));
                 console.log("MOUSE UP", mouse.x, mouse.y);
-                // const left = Math.min(...getState().arrayX);
-                // const top = Math.min(...getState().arrayY);
-                // const right = Math.max(...getState().arrayX);
-                // const bottom = Math.max(...getState().arrayY);
-                // dispatch(setBoundBox(left, top, right, bottom))
-                // const mostRight = arrayY.sort((a, b) => a < b)[0];
-                // console.log("BOUND BOX", left, top, right, bottom);
                 const width = getState().right - getState().left;
                 const height = getState().bottom - getState().top;
-                // console.log(width, height);
                 context.rect(getState().left, getState().right, width, height);
                 context.stroke();
-                let imageData = getState().context.getImageData(0, 0, 28, 28);
-                console.log(imageData);
-                // for (let y = canvas.height; y > 0; y--) {
-                //     for (let x = canvas.width; x > 0; x--) {
-                //         if 
-                //     }
-                // }
+
+                let scaled = document.createElement("canvas");
+                let scaledContext = scaled.getContext("2d");
+                scaled.width = 28;
+                scaled.height = 28;
+                scaledContext.drawImage(getState().canvas, 0, 0, 28, 28);
+                let imageData = scaledContext.getImageData(0, 0, 28, 28);
+                console.log(scaled.toDataURL('image/png'));
                 // dispatch(setCurrentDraw(imageData))
                 dispatch(predict(imageData));
                 // console.log(getState().answer);
@@ -63,12 +182,6 @@ export function createDrawPad(ref) {
     };
 }
 
-function setCurrentDraw(currentDraw) {
-    return {
-        type: "SET_CURRENT_DRAW",
-        currentDraw,
-    };
-}
 
 function setDrawPad(canvas, context) {
     return {
@@ -80,11 +193,17 @@ function setDrawPad(canvas, context) {
 export function clearDrawPad() {
     return function (dispatch, getState) {
         return (async () => {
+            console.log("TESTTESTTEST", getState().chart);
             const canvas = getState().canvas;
             const context = canvas.getContext('2d');;
             context.clearRect(0, 0, canvas.width, canvas.height);
             dispatch(setDrawPad(canvas, context));
             dispatch(setPredictions(null, null));
+            let chart = getState().chart;
+            chart.destroy();
+            chart = new Chart(chartContext, defData);
+            dispatch(setChart(chart))
+            called = false;
         })();
     };
 }
@@ -133,19 +252,5 @@ function setPredictions(answer, predictions) {
     return {
         type: "SET_PREDICTIONS",
         answer, predictions
-    };
-}
-
-function setCoordinates(arrayX, arrayY) {
-    return {
-        type: "SET_COORDINATES",
-        arrayX, arrayY,
-    };
-}
-
-function setBoundBox(left, top, right, bottom) {
-    return {
-        type: "SET_BOUND_BOX",
-        left, right, top, bottom,
     };
 }

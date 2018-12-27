@@ -11,6 +11,32 @@ const defaultState = {
     right: 0,
     top: 0,
     bottom: 0,
+    chartData: {
+        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",],
+        datasets: [
+            {
+                label: 'Data',
+                data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+                backgroundColor: [
+                    // colorArray[9],
+                    "black",
+                    "yellow",
+                    "red",
+                    "green",
+                    "blue",
+                    "orange",
+                    "purple",
+                    "pink",
+                    "brown",
+                    "lavender"
+                ],
+                borderColor: [
+                    'white',
+                ],
+                borderWidth: 2
+            },
+        ]
+    },
 };
 
 
@@ -28,6 +54,8 @@ const reducer = (state = defaultState, action) => {
             return { ...state, left: action.left, right: action.right, top: action.top, bottom: action.bottom }
         case "SET_COORDINATES":
             return { ...state, arrayX: action.arrayX, arrayY: action.arrayY };
+        case "SET_CHART":
+            return { ...state, chart: action.chart };
         default:
             return state;
     }
